@@ -7,10 +7,13 @@ Inpiration from [nukr/jpegquality](https://github.com/nukr/jpegquality)
 # Use
 
 ```command
-go get https://github.com/madeinfree/gojpegquality
+go get github.com/madeinfree/gojpegquality
 ```
 
 ```go
+import (
+  quality "github.com/madeinfree/gojpegquality"
+)
 data, _ := ioutil.ReadFile("filePath")
 q := gojpegquality.GetQ(File []buffer) float64
 fmt.Println(q)
