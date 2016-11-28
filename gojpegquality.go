@@ -76,7 +76,7 @@ func averageTable(table string, index int) float64 {
 	return result
 }
 
-func gojpegquality(buf []byte) {
+func GetQ(buf []byte) float64 {
 	start := time.Now()
 	var avgs [3]float64
 
@@ -84,7 +84,7 @@ func gojpegquality(buf []byte) {
 
 	if data[0] != 0xFF || data[1] != 0xD8 {
 		fmt.Println("ERROR: Not a supported JPEG format")
-		return
+		return 1
 	}
 
 	tables := searchQuantizationTable(data)
@@ -103,12 +103,12 @@ func gojpegquality(buf []byte) {
 		fmt.Println("avgs == 2 ->", quality)
 		elapsed := time.Since(start)
 		fmt.Println("time:", elapsed)
-		return
+		return quality
 	}
 
 	if len(avgs) == 1 || (avgs[1] == 0 && avgs[2] == 0) {
 		fmt.Println(avgs)
-		return
+		return avgs[0]
 	}
 
 	if len(avgs) == 3 {
@@ -116,6 +116,8 @@ func gojpegquality(buf []byte) {
 		diff += math.Abs(avgs[0]-avgs[2]) * 0.49
 		quality := (avgs[0]+avgs[1]+avgs[2])/3 + diff
 		fmt.Println("avgs == 3 ->", quality)
-		return
+		return quality
 	}
+
+	return 1
 }

@@ -11,7 +11,9 @@ go get https://github.com/madeinfree/gojpegquality
 ```
 
 ```go
-q := gojpegquality(File []buffer) float64
+data, _ := ioutil.ReadFile("filePath")
+q := gojpegquality.GetQ(File []buffer) float64
+fmt.Println(q)
 ```
 
 # License
